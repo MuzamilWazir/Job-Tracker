@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from database import base , engine ,test_connection
+from routers.company import router
 
 
 
@@ -9,6 +10,7 @@ test_connection()
 
 app = FastAPI()
 
+app.include_router(router, prefix="/company", tags=["Company"])
 
 @app.get("/")
 def read_root():
