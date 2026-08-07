@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 
-try:
-    from .database import base, engine
-except ImportError:  # pragma: no cover - allows running as a top-level module
-    from database import base, engine
+from database import base , engine ,test_connection
+
+
 
 base.metadata.create_all(engine)
+test_connection()
 
 app = FastAPI()
 

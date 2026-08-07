@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine , text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 try:
@@ -19,3 +19,13 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def test_connection():
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        print("✅ Successfully connected to Neon Database")
+    except Exception as e:
+        print("❌ Failed to connect to the database")
+        print(e)
