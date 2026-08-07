@@ -1,5 +1,12 @@
+from schema.company import CompanyCreate
+from model.company import Company
 
-
-def create_company():
-    return {"message": "Company created successfully!"}
-  
+def create_company(company: CompanyCreate, db):
+    new_company = Company(**company.dict())
+    db.add(new_company)
+    db.commit()
+    db.refresh(new_company)
+    return {
+        "message": "Company created successfully!",
+        "company": new_company
+    }

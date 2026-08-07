@@ -1,10 +1,12 @@
-from sqlalchemy import APIRouter , Depends
+from fastapi import APIRouter, Depends
 
-from backend import crud
+from crud import company
+from database import get_db
+from schema.company import CompanyCreate
 
 
 router = APIRouter()
 
 @router.post("/create")
-def create_company():
-    return crud.create_company()
+def create_company(company: CompanyCreate , db=Depends(get_db)):
+    return company.create_company(company=company , db=db)
