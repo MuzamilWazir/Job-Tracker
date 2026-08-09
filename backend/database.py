@@ -10,11 +10,11 @@ base = declarative_base()
 
 engine = create_engine(url=settings.DATABASE_URL, echo=True)
 
-local_session = sessionmaker(bind=engine)
+SessionLocal = sessionmaker(bind=engine)
 
 
 def get_db():
-    db = local_session()
+    db = SessionLocal()
     try:
         yield db
     finally:
