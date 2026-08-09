@@ -9,7 +9,7 @@ class Company(base):
     name = Column(String, nullable=False)
     website = Column(String, nullable=True)
     notes = Column(String, nullable=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    users_id = Column(Integer, ForeignKey("users.id"), nullable=True)
 
     owner = relationship("User", back_populates="companies")
     applications = relationship("Application", back_populates="company")
