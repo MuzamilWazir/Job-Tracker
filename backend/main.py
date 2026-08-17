@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-
 from database import base , engine ,test_connection
 from routers.company import router
 
