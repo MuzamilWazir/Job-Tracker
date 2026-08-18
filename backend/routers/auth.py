@@ -1,6 +1,6 @@
 from fastapi import APIRouter , Depends , HTTPException , status
 from sqlalchemy.orm import Session
-from crud.user import create_user
+from crud.user import create_user , login_user
 from schema.user import UserCreate
 from database import get_db
 
@@ -14,3 +14,7 @@ router = APIRouter(
 @router.post("/register")
 def register_user(body: UserCreate, db: Session = Depends(get_db)):
     return create_user(body.email, body.password, db)
+
+@router.post("/login")
+def login_user(body : UserCreate , db : Session = Depends(get_db)):
+    return login_user(body.email , body.password ,db)
