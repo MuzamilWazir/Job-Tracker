@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from jose import jwt, JWTError
 from database import SessionLocal
-from model.user import User
+from models.user import User
 from config import settings
 
 # This tells FastAPI: "expect a Bearer token in the Authorization header,

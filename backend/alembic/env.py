@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 from database import base
-from model import User, Company, Application, StatusHistory
+from models import User, Company, Application, StatusHistory
 
 # Import your Pydantic settings (change 'config' to the actual python file where your Settings object is located)
 from config import settings 

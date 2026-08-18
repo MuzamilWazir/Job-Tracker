@@ -1,8 +1,9 @@
 from fastapi import APIRouter , Depends , HTTPException , status
 from sqlalchemy.orm import Session
 from auth.hashing import hash_password , verify_password
+from backend.auth.jwt_handler import create_access_token
 from database import get_db
-from model.user import User
+from models.user import User
 
 def create_user(email : str , password : str, db : Session):
    existing_user = db.query(User).filter(User.email == email).first()
@@ -31,5 +32,6 @@ def login_user(email : str , password : str, db : Session):
    if not correctPassword:
         raise HTTPException(401, detail =  "Invalid password")
 
-    
+
+
 

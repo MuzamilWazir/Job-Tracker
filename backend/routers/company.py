@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 
 from crud import company
 from database import get_db
-from schema.company import CompanyCreate
+from schemas.company import CompanyCreate
 
 
 router = APIRouter()

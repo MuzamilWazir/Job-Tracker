@@ -1,5 +1,5 @@
-from schema.company import CompanyCreate
-from model.company import Company
+from schemas.company import CompanyCreate
+from models.company import Company
 
 def create_company(company: CompanyCreate, db):
     new_company = Company(**company.model_dump())
