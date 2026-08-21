@@ -8,7 +8,13 @@ except ImportError:  # pragma: no cover - allows running as a top-level module
 
 base = declarative_base()
 
-engine = create_engine(url=settings.DATABASE_URL, echo=True)
+engine = create_engine(
+    url=settings.DATABASE_URL,
+    echo=True,
+    connect_args={"sslmode": "require"},
+    pool_pre_ping=True,
+    pool_recycle=300
+)
 
 SessionLocal = sessionmaker(bind=engine)
 
