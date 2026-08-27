@@ -33,7 +33,7 @@ def get_company(db: Session, company_id: int, user_id: int) -> Company:
 
 def update_company(db: Session, company_id: int, data: CompanyUpdate, user_id: int) -> Company:
     company = get_company(db, company_id, user_id)
-    for key, value in data.dict(exclude_unset=True).items():
+    for key, value in data.model_dump(exclude_unset=True).items():
         setattr(company, key, value)
     db.commit()
     db.refresh(company)

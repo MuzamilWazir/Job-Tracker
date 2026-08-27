@@ -1,10 +1,11 @@
-from sqlalchemy import create_engine , text
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 try:
     from .config import settings
 except ImportError:  # pragma: no cover - allows running as a top-level module
     from config import settings
+
 
 base = declarative_base()
 
@@ -13,7 +14,7 @@ engine = create_engine(
     echo=True,
     connect_args={"sslmode": "require"},
     pool_pre_ping=True,
-    pool_recycle=300
+    pool_recycle=300,
 )
 
 SessionLocal = sessionmaker(bind=engine)
@@ -27,7 +28,7 @@ def get_db():
         db.close()
 
 
-def test_connection():
+def test_connection() -> None:
     try:
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))

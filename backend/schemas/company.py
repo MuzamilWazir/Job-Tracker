@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
@@ -13,12 +13,12 @@ class CompanyUpdate(BaseModel):
     website: Optional[str] = None
     notes: Optional[str] = None
 
+
 class CompanyOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     name: str
     website: Optional[str]
     notes: Optional[str]
-    user_id: int
-
-    class Config:
-        from_attributes = True   
+    user_id: int 
