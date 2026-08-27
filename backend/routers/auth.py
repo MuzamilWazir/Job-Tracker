@@ -16,5 +16,5 @@ def register_user(body: UserCreate, db: Session = Depends(get_db)):
     return create_user(body.email, body.password, db)
 
 @router.post("/login")
-def login_user(body : UserCreate , db : Session = Depends(get_db)):
+def login(body : UserCreate , db : Session = Depends(get_db)):
     return login_user(body.email , body.password ,db)
