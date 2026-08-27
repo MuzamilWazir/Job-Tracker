@@ -41,7 +41,6 @@ def update_company(db: Session, company_id: int, data: CompanyUpdate, user_id: i
 
 
 def delete_company(db: Session, company_id: int, user_id: int) -> None:
-    """Delete a company owned by the given user."""
     company = get_company(db, company_id, user_id)
     db.delete(company)
     db.commit()
