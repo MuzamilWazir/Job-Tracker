@@ -24,3 +24,6 @@ class ApplicationOut(BaseModel):
     notes: Optional[str]
     company_id: int
     user_id: int
+
+class ApplicationStatusUpdate(BaseModel):
+    new_status: str
