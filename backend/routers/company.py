@@ -66,5 +66,5 @@ def delete_company_endpoint(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ) -> None:
-    """Delete a company owned by the current user."""
+    
     delete_company(db, company_id, current_user.id)
