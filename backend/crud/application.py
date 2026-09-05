@@ -1,4 +1,6 @@
 
+from fastapi import HTTPException, status
+
 from sqlalchemy.orm import Session
 from models.application import Application
 from schemas.application import ApplicationCreate, ApplicationUpdate
@@ -24,3 +26,11 @@ def get_applications_by_user(db : Session, user_id : int, status=None):
         query = query.filter(Application.status == status)
     return query.all()
 
+
+def get_application(db : Session, application_id : int, user_id : int):
+    application = db.query(Application).filter(
+        Application.id == application_id, Application.user_id == user_id
+    ).first()
+    if not application:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Application not found")
+    return application
