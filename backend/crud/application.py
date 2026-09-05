@@ -34,3 +34,12 @@ def get_application(db : Session, application_id : int, user_id : int):
     if not application:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Application not found")
     return application
+
+
+def update_application(db : Session, application_id : int, data : ApplicationUpdate, user_id : int):
+    application = get_application(db, application_id, user_id)
+    for key, value in data.dict(exclude_unset=True).items():
+        setattr(application, key, value)
+    db.commit()
+    db.refresh(application)
+    return application
