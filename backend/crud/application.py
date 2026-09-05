@@ -43,3 +43,10 @@ def update_application(db : Session, application_id : int, data : ApplicationUpd
     db.commit()
     db.refresh(application)
     return application
+
+
+def delete_application(db :Session , application_id : int , user_id : int):
+    application =  application(db ,  application_id, user_id)
+    db.delete(application)
+    db.commit()
+    
