@@ -4,8 +4,8 @@ from typing import Optional
 from fastapi import HTTPException, status
 
 from sqlalchemy.orm import Session
-from backend.crud.company import get_company
-from backend.models.status_history import StatusHistory
+from crud.company import get_company
+from models.status_history import StatusHistory
 from models.application import Application
 from schemas.application import ApplicationCreate, ApplicationStatusUpdate, ApplicationUpdate
 

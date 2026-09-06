@@ -2,12 +2,14 @@ from fastapi import FastAPI
 from database import base, engine, test_connection
 from routers.company import router as company_router
 from routers.auth import router as auth_router
+from routers.application import router as application_router
 
 
 app = FastAPI()
 
 app.include_router(company_router, tags=["Company"])
 app.include_router(auth_router, tags=["Authentication"])
+app.include_router(application_router , tags=["Applications"])
 
 
 @app.on_event("startup")
