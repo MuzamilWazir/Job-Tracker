@@ -1,4 +1,6 @@
 
+from typing import Optional
+
 from fastapi import HTTPException, status
 
 from sqlalchemy.orm import Session
@@ -26,10 +28,11 @@ def create_application(db : Session, data : ApplicationCreate, user_id : int):
     db.refresh(new_application)
     return new_application
 
-def get_applications_by_user(db : Session, user_id : int, status=None):
+def get_applications_by_user(db: Session, user_id: int, status_filter: Optional[str] = None) -> list[Application]:
+    """Return all applications owned by the user, optionally filtered by status."""
     query = db.query(Application).filter(Application.user_id == user_id)
-    if status:
-        query = query.filter(Application.status == status)
+    if status_filter:
+        query = query.filter(Application.status == status_filter)
     return query.all()
 
 
