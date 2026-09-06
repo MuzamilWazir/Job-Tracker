@@ -2,16 +2,22 @@
 from fastapi import HTTPException, status
 
 from sqlalchemy.orm import Session
+from backend.crud.company import get_company
+from backend.models.status_history import StatusHistory
 from models.application import Application
-from schemas.application import ApplicationCreate, ApplicationUpdate
+from schemas.application import ApplicationCreate, ApplicationStatusUpdate, ApplicationUpdate
+
 
 
 
 def create_application(db : Session, data : ApplicationCreate, user_id : int):
+
+    get_company(db , data.company_id , user_id)
+
     new_application =  Application(
     job_title = data.job_title,
     notes = data.notes,
-    company = data.company_id,
+    company_id=data.company_id,
     user_id = user_id
     )
 
@@ -44,9 +50,25 @@ def update_application(db : Session, application_id : int, data : ApplicationUpd
     db.refresh(application)
     return application
 
+def update_application_status(db: Session, application_id: int, data: ApplicationStatusUpdate, user_id: int) -> Application:
+    """Update an application's status and log the change in status_history."""
+    application = get_application(db, application_id, user_id)
+
+    old_status = application.status
+
+    history_entry = StatusHistory(
+        application_id=application.id,
+        old_status=old_status,
+        new_status=data.new_status
+    )
+    db.add(history_entry)
+
+    application.status = data.new_status
+    db.commit()
+    db.refresh(application)
+    return application
 
 def delete_application(db :Session , application_id : int , user_id : int):
-    application =  application(db ,  application_id, user_id)
+    application =  get_application(db ,  application_id, user_id)
     db.delete(application)
     db.commit()
-    
